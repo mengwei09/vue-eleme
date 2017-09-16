@@ -1,6 +1,7 @@
 # vue-eleme-webapp
 
-## [在线预览](https://mengwei09.github.io/vue-eleme)
+## 在线预览
+* 在线预览地址: https://mengwei09.github.io/vue-eleme
 * PC端打开浏览器调试模式，并切换到移动设备模式
 * 手机端直接用浏览器打开
 
