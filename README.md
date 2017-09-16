@@ -1,7 +1,7 @@
 # vue-eleme-webapp
 
 ## [在线预览](https://mengwei09.github.io/vue-eleme)
-* PC端打开浏览器调试模式，切换到移动设备模式
+* PC端打开浏览器调试模式，并切换到移动设备模式
 * 手机端直接用浏览器打开
 
 ## 技术栈
