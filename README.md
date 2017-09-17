@@ -35,6 +35,9 @@ and its direct children ( flex items ), as well as how those child elements beha
 * [Understanding ECMAScript 6](https://github.com/nzakas/understandinges6)
 * [ECMAScript 6 入门](http://es6.ruanyifeng.com/)
 
+### Vue.js Template
+* [Vue.js Template文档](http://vuejs-templates.github.io/webpack/)
+
 ## Build Setup
 
 ``` bash
