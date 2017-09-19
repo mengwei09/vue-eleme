@@ -24,7 +24,7 @@
 
 > 在 Vue 中，父子组件的关系可以总结为 **props down, events up**。父组件通过 **props** 向下传递数据给子组件，子组件通过 **events** 给父组件发送消息。看看它们是怎么工作的。
 
-> ![props down, events up](https://cn.vuejs.org/images/props-events.png)
+![props down, events up](https://cn.vuejs.org/images/props-events.png)
 
 * **不应该**在子组件内部改变 prop, 如果你这么做了，Vue 会在控制台给出警告
 > 注意在 JavaScript 中对象和数组是引用类型，指向同一个内存空间，如果 prop 是一个对象或数组，在子组件内部改变它**会影响**父组件的状态
