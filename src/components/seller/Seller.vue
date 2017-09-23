@@ -69,74 +69,74 @@
 </template>
 
 <script>
-  import BScroll from 'better-scroll'
-  import Star from '@/components/star/Star'
-  import Split from '@/components/split/Split'
+import BScroll from 'better-scroll'
+import Star from '@/components/Star/Star'
+import Split from '@/components/Split/Split'
 
-  export default {
-    props: {
-      seller: {
-        type: Object
-      }
-    },
-    data () {
-      return {
-        favorite: false
-      }
-    },
-    computed: {
-      favoriteText () {
-        return this.favorite ? '已收藏' : '收藏'
-      }
-    },
-    components: {
-      Star,
-      Split
-    },
-    methods: {
-      _initScroll () {
-        this.scroll = new BScroll(this.$refs.seller, {
-          click: true
-        })
-      },
-      _initPics () {
-        if (this.seller.pics) {
-          let picWidth = 120
-          let margin = 6
-          let width = (picWidth + margin) * this.seller.pics.length - margin
-          this.$refs.list.style.width = width + 'px'
-          this.picScroll = new BScroll(this.$refs.wrapper, {
-            scrollX: true,
-            eventPassthrough: 'vertical'
-          })
-        }
-      },
-      toggleFavorite (event) {
-        if (!event._constructed) {
-          return
-        }
-        this.favorite = !this.favorite
-      }
-    },
-    created () {
-      this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
-      this.$nextTick(() => {
-        // console.log('created')
-        this._initScroll()
-        this._initPics()
-        // console.log(this.seller)
+export default {
+  props: {
+    seller: {
+      type: Object
+    }
+  },
+  data () {
+    return {
+      favorite: false
+    }
+  },
+  computed: {
+    favoriteText () {
+      return this.favorite ? '已收藏' : '收藏'
+    }
+  },
+  components: {
+    Star,
+    Split
+  },
+  methods: {
+    _initScroll () {
+      this.scroll = new BScroll(this.$refs.seller, {
+        click: true
       })
     },
-    watch: {
-      seller: function () {
-        // console.log(this.seller)
-        this.$nextTick(() => {
-          this._initScroll()
-          this._initPics()
+    _initPics () {
+      if (this.seller.pics) {
+        let picWidth = 120
+        let margin = 6
+        let width = (picWidth + margin) * this.seller.pics.length - margin
+        this.$refs.list.style.width = width + 'px'
+        this.picScroll = new BScroll(this.$refs.wrapper, {
+          scrollX: true,
+          eventPassthrough: 'vertical'
         })
       }
+    },
+    toggleFavorite (event) {
+      if (!event._constructed) {
+        return
+      }
+      this.favorite = !this.favorite
+    }
+  },
+  created () {
+    this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
+    this.$nextTick(() => {
+      // console.log('created')
+      this._initScroll()
+      this._initPics()
+      // console.log(this.seller)
+    })
+  },
+  watch: {
+    seller: function () {
+      // console.log(this.seller)
+      this.$nextTick(() => {
+        this._initScroll()
+        this._initPics()
+      })
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

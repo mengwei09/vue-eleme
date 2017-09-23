@@ -7,40 +7,40 @@
 </template>
 
 <script>
-  import Vue from 'vue'
+import Vue from 'vue'
 
-  export default {
-    // 注意在 JavaScript 中对象和数组是引用类型，指向同一个内存空间，如果 prop 是一个对象或数组，在子组件内部改变它会影响父组件的状态。
-    props: {
-      food: {
-        type: Object
+export default {
+  // 注意在 JavaScript 中对象和数组是引用类型，指向同一个内存空间，如果 prop 是一个对象或数组，在子组件内部改变它会影响父组件的状态。
+  props: {
+    food: {
+      type: Object
+    }
+  },
+  created () {
+    // console.log(this.food)
+  },
+  methods: {
+    addGoods (event) {
+      if (!event._constructed) {
+        return
       }
+      if (!this.food.count) {
+        Vue.set(this.food, 'count', 1)
+      } else {
+        this.food.count++
+      }
+      console.log('click')
     },
-    created () {
-      // console.log(this.food)
-    },
-    methods: {
-      addGoods (event) {
-        if (!event._constructed) {
-          return
-        }
-        if (!this.food.count) {
-          Vue.set(this.food, 'count', 1)
-        } else {
-          this.food.count++
-        }
-        console.log('click')
-      },
-      decreaseGoods (event) {
-        if (!event._constructed) {
-          return
-        }
-        if (this.food.count) {
-          this.food.count--
-        }
+    decreaseGoods (event) {
+      if (!event._constructed) {
+        return
+      }
+      if (this.food.count) {
+        this.food.count--
       }
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

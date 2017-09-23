@@ -53,95 +53,95 @@
 </template>
 
 <script>
-  import Star from '@/components/star/Star'
-  import Split from '@/components/split/Split'
-  import ratingSelect from '@/components/ratingselect/ratingSelect'
-  import BScroll from 'better-scroll'
+import Star from '@/components/Star/Star'
+import Split from '@/components/Split/Split'
+import RatingSelect from '@/components/RatingSelect/RatingSelect'
+import BScroll from 'better-scroll'
 
-  import { formatDate } from '../../common/js/date'
+import { formatDate } from '../../common/js/date'
 
-  const ALL = 2
-  // const ERR_OK = 0
+const ALL = 2
+// const ERR_OK = 0
 
-  export default {
-    props: {
-      seller: {
-        type: Object
+export default {
+  props: {
+    seller: {
+      type: Object
+    }
+  },
+  data () {
+    return {
+      ratings: [],
+      selectType: ALL,
+      onlyContent: true
+    }
+  },
+  methods: {
+    // 评论筛选逻辑
+    needShow (type, text) {
+      if (this.onlyContent && !text) {
+        return false
+      }
+      if (this.selectType === ALL) {
+        return true
+      } else {
+        return type === this.selectType
       }
     },
-    data () {
-      return {
-        ratings: [],
-        selectType: ALL,
-        onlyContent: true
-      }
-    },
-    methods: {
-      // 评论筛选逻辑
-      needShow (type, text) {
-        if (this.onlyContent && !text) {
-          return false
-        }
-        if (this.selectType === ALL) {
-          return true
-        } else {
-          return type === this.selectType
-        }
-      },
-      selectRatingType (type) {
-        this.selectType = type
-        // this.scroll.refresh()
-        // Vue 异步执行 DOM 更新
-        // 在组件内使用 vm.$nextTick() 实例方法,回调函数中的 this 将自动绑定到当前的 Vue 实例上
-        // https://cn.vuejs.org/v2/guide/reactivity.html#异步更新队列
-        this.$nextTick(() => {
-          this.scroll.refresh()
-        })
-      },
-      toggleContent () {
-        this.onlyContent = !this.onlyContent
-        // this.scroll.refresh()
-        // Vue 异步执行 DOM 更新
-        this.$nextTick(() => {
-          this.scroll.refresh()
-        })
-      }
-    },
-    created () {
-      // this.$axios.get('/api/ratings').then((response) => {
-      //   // console.log(response)
-      //   if (response.data.errno === ERR_OK) {
-      //     this.ratings = response.data.data
-      //     // console.log(this.ratings)
-      //     this.$nextTick(() => {
-      //       this.scroll = new BScroll(this.$refs.ratings, {
-      //         click: true
-      //       })
-      //     })
-      //   }
-      // })
-      this.$axios.get('https://www.easy-mock.com/mock/59bc021ee0dc663341ac13a5/eleme/ratings').then((response) => {
-        this.ratings = response.data.ratings
-        // console.log(this.ratings)
-        this.$nextTick(() => {
-          this.scroll = new BScroll(this.$refs.ratings, {
-            click: true
-          })
-        })
+    selectRatingType (type) {
+      this.selectType = type
+      // this.scroll.refresh()
+      // Vue 异步执行 DOM 更新
+      // 在组件内使用 vm.$nextTick() 实例方法,回调函数中的 this 将自动绑定到当前的 Vue 实例上
+      // https://cn.vuejs.org/v2/guide/reactivity.html#异步更新队列
+      this.$nextTick(() => {
+        this.scroll.refresh()
       })
     },
-    components: {
-      Star,
-      Split,
-      ratingSelect
-    },
-    filters: {
-      formatDate (time) {
-        let date = new Date(time)
-        return formatDate(date, 'yyyy-MM-dd hh:mm')
-      }
+    toggleContent () {
+      this.onlyContent = !this.onlyContent
+      // this.scroll.refresh()
+      // Vue 异步执行 DOM 更新
+      this.$nextTick(() => {
+        this.scroll.refresh()
+      })
+    }
+  },
+  created () {
+    // this.$axios.get('/api/ratings').then((response) => {
+    //   // console.log(response)
+    //   if (response.data.errno === ERR_OK) {
+    //     this.ratings = response.data.data
+    //     // console.log(this.ratings)
+    //     this.$nextTick(() => {
+    //       this.scroll = new BScroll(this.$refs.ratings, {
+    //         click: true
+    //       })
+    //     })
+    //   }
+    // })
+    this.$axios.get('https://www.easy-mock.com/mock/59bc021ee0dc663341ac13a5/eleme/ratings').then((response) => {
+      this.ratings = response.data.ratings
+      // console.log(this.ratings)
+      this.$nextTick(() => {
+        this.scroll = new BScroll(this.$refs.ratings, {
+          click: true
+        })
+      })
+    })
+  },
+  components: {
+    Star,
+    Split,
+    RatingSelect
+  },
+  filters: {
+    formatDate (time) {
+      let date = new Date(time)
+      return formatDate(date, 'yyyy-MM-dd hh:mm')
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -47,110 +47,110 @@
 </template>
 
 <script>
-  import cartControl from '@/components/cartcontrol/cartControl'
-  import BScroll from 'better-scroll'
+import CartControl from '@/components/CartControl/CartControl'
+import BScroll from 'better-scroll'
 
-  export default {
-    data () {
-      return {
-        fold: true
-      }
-    },
-    props: {
-      deliveryPrice: {
-        type: Number,
-        default: 0
-      },
-      minPrice: {
-        type: Number,
-        default: 0
-      },
-      selectFoods: {
-        type: Array,
-        default: function () {
-          // 数组/对象的默认值应当由一个工厂函数返回
-          return [{price: 10, count: 1}]
-        }
-      }
-    },
-    methods: {
-      toggleList () {
-        if (!this.totalCount) {
-          return
-        }
-        this.fold = !this.fold
-      },
-      hideList () {
-        this.fold = true
-      },
-      empty () {
-        this.selectFoods.forEach((food) => {
-          food.count = 0
-        })
-      },
-      pay () {
-        if (this.totalPrice < this.minPrice) {
-          return
-        }
-        window.alert(`支付￥${this.totalPrice}`)
-      }
-    },
-    computed: {
-      totalPrice () {
-        let total = 0
-        this.selectFoods.forEach((food) => {
-          total += food.price * food.count
-        })
-        return total
-      },
-      totalCount () {
-        let count = 0
-        this.selectFoods.forEach((food) => {
-          count += food.count
-        })
-        return count
-      },
-      payDesc () {
-        if (this.totalPrice === 0) {
-          return `￥${this.minPrice}起送`
-        } else if (this.totalPrice < this.minPrice) {
-          let diff = this.minPrice - this.totalPrice
-          return `还差￥${diff}起送`
-        } else {
-          return '去结算'
-        }
-      },
-      payClass () {
-        if (this.totalPrice < this.minPrice) {
-          return 'not-enough'
-        } else {
-          return 'enough'
-        }
-      },
-      listShow () {
-        if (!this.totalCount) {
-          this.fold = true
-          return false
-        }
-        let show = !this.fold
-        if (show) {
-          this.$nextTick(() => {
-            if (!this.scroll) {
-              this.scroll = new BScroll(this.$refs.list, {
-                click: true
-              })
-            } else {
-              this.scroll.refresh()
-            }
-          })
-        }
-        return show
-      }
-    },
-    components: {
-      cartControl
+export default {
+  data () {
+    return {
+      fold: true
     }
+  },
+  props: {
+    deliveryPrice: {
+      type: Number,
+      default: 0
+    },
+    minPrice: {
+      type: Number,
+      default: 0
+    },
+    selectFoods: {
+      type: Array,
+      default: function () {
+        // 数组/对象的默认值应当由一个工厂函数返回
+        return [{price: 10, count: 1}]
+      }
+    }
+  },
+  methods: {
+    toggleList () {
+      if (!this.totalCount) {
+        return
+      }
+      this.fold = !this.fold
+    },
+    hideList () {
+      this.fold = true
+    },
+    empty () {
+      this.selectFoods.forEach((food) => {
+        food.count = 0
+      })
+    },
+    pay () {
+      if (this.totalPrice < this.minPrice) {
+        return
+      }
+      window.alert(`支付￥${this.totalPrice}`)
+    }
+  },
+  computed: {
+    totalPrice () {
+      let total = 0
+      this.selectFoods.forEach((food) => {
+        total += food.price * food.count
+      })
+      return total
+    },
+    totalCount () {
+      let count = 0
+      this.selectFoods.forEach((food) => {
+        count += food.count
+      })
+      return count
+    },
+    payDesc () {
+      if (this.totalPrice === 0) {
+        return `￥${this.minPrice}起送`
+      } else if (this.totalPrice < this.minPrice) {
+        let diff = this.minPrice - this.totalPrice
+        return `还差￥${diff}起送`
+      } else {
+        return '去结算'
+      }
+    },
+    payClass () {
+      if (this.totalPrice < this.minPrice) {
+        return 'not-enough'
+      } else {
+        return 'enough'
+      }
+    },
+    listShow () {
+      if (!this.totalCount) {
+        this.fold = true
+        return false
+      }
+      let show = !this.fold
+      if (show) {
+        this.$nextTick(() => {
+          if (!this.scroll) {
+            this.scroll = new BScroll(this.$refs.list, {
+              click: true
+            })
+          } else {
+            this.scroll.refresh()
+          }
+        })
+      }
+      return show
+    }
+  },
+  components: {
+    CartControl
   }
+}
 </script>
 
 <style lang="scss" scoped>

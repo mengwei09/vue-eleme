@@ -3,8 +3,7 @@
     <div class="menu-wrapper" ref="menuwrapper">
       <ul>
         <li v-for="(item, index) in goods" class="menu-item" :class="{current: currentIndex === index}" @click="selectMenu(index, $event)">
-          <span class="text border-1px">
-            <span v-show="item.type > 0" class="icon" :class="classMap[item.type]"></span>{{ item.name }}</span>
+          <span class="text border-1px"><span v-show="item.type > 0" class="icon" :class="classMap[item.type]"></span>{{ item.name }}</span>
         </li>
       </ul>
     </div>
@@ -43,124 +42,124 @@
 </template>
 
 <script>
-  import BScroll from 'better-scroll'
-  import shoppingCart from '@/components/shoppingcart/shoppingCart'
-  import cartControl from '@/components/cartcontrol/cartControl'
-  import Food from '@/components/food/Food'
+import BScroll from 'better-scroll'
+import ShoppingCart from '@/components/ShoppingCart/ShoppingCart'
+import CartControl from '@/components/CartControl/CartControl'
+import Food from '@/components/Food/Food'
 
-  // const ERR_OK = 0
+// const ERR_OK = 0
 
-  export default {
-    data () {
-      return {
-        goods: [],
-        listHeight: [],
-        scrollY: 0,
-        selectedFood: {}
-      }
-    },
-    props: {
-      seller: {
-        type: Object
-      }
-    },
-    components: {
-      shoppingCart,
-      cartControl,
-      Food
-    },
-    computed: {
-      currentIndex () {
-        for (let i = 0; i < this.listHeight.length; i++) {
-          let height1 = this.listHeight[i]
-          let height2 = this.listHeight[i + 1]
-          if (!height2 || (this.scrollY >= height1 && this.scrollY < height2)) {
-            return i
-          }
-        }
-        return 0
-      },
-      selectFoods () {
-        let foods = []
-        this.goods.forEach((good) => {
-          good.foods.forEach((food) => {
-            if (food.count) {
-              foods.push(food)
-            }
-          })
-        })
-        return foods
-      }
-    },
-    methods: {
-      _initScroll () {
-        this.menuScroll = new BScroll(this.$refs.menuwrapper, {
-          click: true
-        })
-
-        this.foodsScroll = new BScroll(this.$refs.foodswrapper, {
-          click: true,
-          probeType: 3
-        })
-
-        this.foodsScroll.on('scroll', (pos) => {
-          this.scrollY = Math.abs(Math.round(pos.y))
-        })
-      },
-
-      _calculateHeight () {
-        let foodList = this.$refs.foodswrapper.getElementsByClassName('food-list-hook')
-        let height = 0
-        this.listHeight.push(height)
-        for (let i = 0; i < foodList.length; i++) {
-          let item = foodList[i]
-          height += item.clientHeight
-          this.listHeight.push(height)
-        }
-      },
-      selectMenu (index, event) {
-        if (!event._constructed) {
-          return
-        }
-        let foodList = this.$refs.foodswrapper.getElementsByClassName('food-list-hook')
-        let element = foodList[index]
-        this.foodsScroll.scrollToElement(element, 300)
-        // console.log(index)
-      },
-      selectFood (food, event) {
-        if (!event._constructed) {
-          return
-        }
-        this.selectedFood = food
-        this.$refs.food.show()
-      }
-    },
-    created () {
-      // this.$axios.get('/api/goods').then((response) => {
-      //   if (response.data.errno === ERR_OK) {
-      //     this.goods = response.data.data
-      //     this.$nextTick(() => {
-      //       this._initScroll()
-      //       this._calculateHeight()
-      //       // console.log(this.listHeight)
-      //       // console.log(this.scrollY)
-      //     })
-      //     // console.log(this.goods)
-      //   }
-      // })
-      this.$axios.get('https://www.easy-mock.com/mock/59bc021ee0dc663341ac13a5/eleme/goods').then((response) => {
-        this.goods = response.data.goods
-        this.$nextTick(() => {
-          this._initScroll()
-          this._calculateHeight()
-          // console.log(this.listHeight)
-          // console.log(this.scrollY)
-        })
-        // console.log(this.goods)
-      })
-      this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
+export default {
+  data () {
+    return {
+      goods: [],
+      listHeight: [],
+      scrollY: 0,
+      selectedFood: {}
     }
+  },
+  props: {
+    seller: {
+      type: Object
+    }
+  },
+  components: {
+    ShoppingCart,
+    CartControl,
+    Food
+  },
+  computed: {
+    currentIndex () {
+      for (let i = 0; i < this.listHeight.length; i++) {
+        let height1 = this.listHeight[i]
+        let height2 = this.listHeight[i + 1]
+        if (!height2 || (this.scrollY >= height1 && this.scrollY < height2)) {
+          return i
+        }
+      }
+      return 0
+    },
+    selectFoods () {
+      let foods = []
+      this.goods.forEach((good) => {
+        good.foods.forEach((food) => {
+          if (food.count) {
+            foods.push(food)
+          }
+        })
+      })
+      return foods
+    }
+  },
+  methods: {
+    _initScroll () {
+      this.menuScroll = new BScroll(this.$refs.menuwrapper, {
+        click: true
+      })
+
+      this.foodsScroll = new BScroll(this.$refs.foodswrapper, {
+        click: true,
+        probeType: 3
+      })
+
+      this.foodsScroll.on('scroll', (pos) => {
+        this.scrollY = Math.abs(Math.round(pos.y))
+      })
+    },
+
+    _calculateHeight () {
+      let foodList = this.$refs.foodswrapper.getElementsByClassName('food-list-hook')
+      let height = 0
+      this.listHeight.push(height)
+      for (let i = 0; i < foodList.length; i++) {
+        let item = foodList[i]
+        height += item.clientHeight
+        this.listHeight.push(height)
+      }
+    },
+    selectMenu (index, event) {
+      if (!event._constructed) {
+        return
+      }
+      let foodList = this.$refs.foodswrapper.getElementsByClassName('food-list-hook')
+      let element = foodList[index]
+      this.foodsScroll.scrollToElement(element, 300)
+      // console.log(index)
+    },
+    selectFood (food, event) {
+      if (!event._constructed) {
+        return
+      }
+      this.selectedFood = food
+      this.$refs.food.show()
+    }
+  },
+  created () {
+    // this.$axios.get('/api/goods').then((response) => {
+    //   if (response.data.errno === ERR_OK) {
+    //     this.goods = response.data.data
+    //     this.$nextTick(() => {
+    //       this._initScroll()
+    //       this._calculateHeight()
+    //       // console.log(this.listHeight)
+    //       // console.log(this.scrollY)
+    //     })
+    //     // console.log(this.goods)
+    //   }
+    // })
+    this.$axios.get('https://www.easy-mock.com/mock/59bc021ee0dc663341ac13a5/eleme/goods').then((response) => {
+      this.goods = response.data.goods
+      this.$nextTick(() => {
+        this._initScroll()
+        this._calculateHeight()
+        // console.log(this.listHeight)
+        // console.log(this.scrollY)
+      })
+      // console.log(this.goods)
+    })
+    this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
   }
+}
 </script>
 
 <style lang="scss" scoped>

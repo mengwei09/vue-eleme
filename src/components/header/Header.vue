@@ -67,35 +67,35 @@
 </template>
 
 <script>
-  import Star from '@/components/star/Star'
+import Star from '@/components/Star/Star'
 
-  export default {
-    name: 'header',
-    data () {
-      return {
-        detailShow: false
-      }
-    },
-    props: {
-      seller: {
-        type: Object
-      }
-    },
-    methods: {
-      showDetail () {
-        this.detailShow = true
-      },
-      hideDetail () {
-        this.detailShow = false
-      }
-    },
-    created () {
-      this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
-    },
-    components: {
-      Star
+export default {
+  name: 'header',
+  data () {
+    return {
+      detailShow: false
     }
+  },
+  props: {
+    seller: {
+      type: Object
+    }
+  },
+  methods: {
+    showDetail () {
+      this.detailShow = true
+    },
+    hideDetail () {
+      this.detailShow = false
+    }
+  },
+  created () {
+    this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
+  },
+  components: {
+    Star
   }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
