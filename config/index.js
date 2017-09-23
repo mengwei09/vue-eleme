@@ -9,7 +9,11 @@ module.exports = {
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
     // 这里是个坑！ 原先配置为'assetsPublicPath: '/',
-    // 导致发布到gh-pages不能正常访问
+    // 导致发布到gh-pages不能正常访问,以下是官方文档描述:
+    // This should be the URL path where your build.assetsRoot will be served from over HTTP. 
+    // In most cases, this will be root (/). 
+    // Only change this if your backend framework serves static assets with a path prefix. 
+    // Internally, this is passed to Webpack as output.publicPath.
     assetsPublicPath: './',
     productionSourceMap: false,
     // Gzip off by default as many popular static hosts such as
